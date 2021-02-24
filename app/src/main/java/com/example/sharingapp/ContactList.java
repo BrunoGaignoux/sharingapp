@@ -39,7 +39,7 @@ public class ContactList extends Observable {
         ArrayList<String> username_list = new ArrayList<String>();
         for (Contact c : contacts){
             username_list.add(c.getUsername());
-        }
+            }
         return username_list;
     }
 

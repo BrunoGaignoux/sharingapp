@@ -274,4 +274,3 @@ public class EditItemActivity extends AppCompatActivity implements Observer {
         return true;
     }
 }
-

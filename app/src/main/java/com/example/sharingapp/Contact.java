@@ -53,3 +53,4 @@ public class Contact extends Observable {
         notifyObservers();
     }
 }
+

@@ -144,4 +144,3 @@ public class AddItemActivity extends AppCompatActivity {
         return true;
     }
 }
-

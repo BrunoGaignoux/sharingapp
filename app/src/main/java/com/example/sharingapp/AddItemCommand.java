@@ -17,7 +17,8 @@ public class AddItemCommand extends Command{
         this.context = context;
     }
 
-    public void execute() {
+    public void execute(){
+
         item_list.addItem(item);
         super.setIsExecuted(item_list.saveItems(context));
     }

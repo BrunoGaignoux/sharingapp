@@ -78,6 +78,6 @@ public class ContactListController {
     }
 
     public void removeObserver(Observer observer) {
-        contact_list.removeObserver(observer);
+       contact_list.removeObserver(observer);
     }
 }
