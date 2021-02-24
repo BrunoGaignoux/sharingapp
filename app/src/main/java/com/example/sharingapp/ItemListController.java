@@ -5,8 +5,9 @@ import android.content.Context;
 import java.util.ArrayList;
 
 /**
- * ItemListController is responsible for all communication between views and ItemList object
+ * ItemListController is responsible for all communication between views and ItemList model
  */
+
 public class ItemListController {
 
     private ItemList item_list;
@@ -21,6 +22,10 @@ public class ItemListController {
 
     public ArrayList<Item> getItems() {
         return item_list.getItems();
+    }
+
+    public ArrayList<Item> getMyItems(String user_id) {
+        return item_list.getMyItems(user_id);
     }
 
     public boolean addItem(Item item, Context context){
@@ -53,16 +58,24 @@ public class ItemListController {
         return item_list.getSize();
     }
 
+    public ArrayList<Item> filterItems(String user_id, String status) {
+        return item_list.filterItems(user_id, status);
+    }
+
+    public ArrayList<Item> getSearchItems(String user_id) {
+        return item_list.getSearchItems(user_id);
+    }
+
+    public ArrayList<Item> getBorrowedItemsByUsername(String username) {
+        return item_list.getBorrowedItemsByUsername(username);
+    }
+
+    public Item getItemById(String id){
+        return item_list.getItemById(id);
+    }
+
     public void loadItems(Context context) {
         item_list.loadItems(context);
-    }
-
-    public ArrayList<Contact> getActiveBorrowers() {
-        return item_list.getActiveBorrowers();
-    }
-
-    public ArrayList<Item> filterItemsByStatus(String status){
-        return item_list.filterItemsByStatus(status);
     }
 
     public void addObserver(Observer observer) {

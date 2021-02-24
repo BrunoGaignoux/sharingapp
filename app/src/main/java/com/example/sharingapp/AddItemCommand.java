@@ -3,7 +3,7 @@ package com.example.sharingapp;
 import android.content.Context;
 
 /**
- * Command to add item
+ * Command to add an item
  */
 public class AddItemCommand extends Command{
 
@@ -17,8 +17,8 @@ public class AddItemCommand extends Command{
         this.context = context;
     }
 
+    // Save the item locally
     public void execute(){
-
         item_list.addItem(item);
         super.setIsExecuted(item_list.saveItems(context));
     }

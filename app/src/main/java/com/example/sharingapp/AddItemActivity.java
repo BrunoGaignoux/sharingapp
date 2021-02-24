@@ -4,11 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /**
  * Add a new item
@@ -21,7 +22,9 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText length;
     private EditText width;
     private EditText height;
+    private EditText min_bid;
 
+    private String user_id;
     private ImageView photo;
     private Bitmap image;
     private int REQUEST_CODE = 1;
@@ -31,19 +34,31 @@ public class AddItemActivity extends AppCompatActivity {
 
     private Context context;
 
+    private String title_str;
+    private String maker_str;
+    private String description_str;
+    private String length_str;
+    private String width_str;
+    private String height_str;
+    private String min_bid_str;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_item);
 
-        title = findViewById(R.id.title);
-        maker = findViewById(R.id.maker);
-        description = findViewById(R.id.description);
-        length = findViewById(R.id.length);
-        width = findViewById(R.id.width);
-        height = findViewById(R.id.height);
-        photo = findViewById(R.id.image_view);
+        Intent intent = getIntent(); // Get intent from MainActivity
+        user_id = intent.getStringExtra("user_id");
+
+        title = (EditText) findViewById(R.id.title);
+        maker = (EditText) findViewById(R.id.maker);
+        description = (EditText) findViewById(R.id.description);
+        length = (EditText) findViewById(R.id.length);
+        width = (EditText) findViewById(R.id.width);
+        height = (EditText) findViewById(R.id.height);
+        photo = (ImageView) findViewById(R.id.image_view);
+        min_bid = (EditText) findViewById(R.id.minimum_bid);
 
         photo.setImageResource(android.R.drawable.ic_menu_gallery);
 
@@ -53,32 +68,31 @@ public class AddItemActivity extends AppCompatActivity {
 
     public void saveItem (View view) {
 
-        if (!validateInput()) {
+        title_str = title.getText().toString();
+        maker_str = maker.getText().toString();
+        description_str = description.getText().toString();
+        length_str = length.getText().toString();
+        width_str = width.getText().toString();
+        height_str = height.getText().toString();
+        min_bid_str = min_bid.getText().toString();
+
+        if(!validateInput()){
             return;
         }
 
-        Item item = new Item(
-                title.getText().toString(),
-                maker.getText().toString(),
-                description.getText().toString(),
-                image,
-                null);
-
+        Item item = new Item(title_str, maker_str, description_str, user_id, min_bid_str, image, null);
         ItemController item_controller = new ItemController(item);
-        item_controller.setDimensions(
-                length.getText().toString(),
-                width.getText().toString(),
-                height.getText().toString()
-        );
+        item_controller.setDimensions(length_str, width_str, height_str);
 
-        // Add item
         boolean success = item_list_controller.addItem(item, context);
-        if (!success) {
+        if (!success){
             return;
         }
 
         // End AddItemActivity
-        Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("user_id", user_id);
+        Toast.makeText(context, "Item created.", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 
@@ -92,6 +106,7 @@ public class AddItemActivity extends AppCompatActivity {
     public void deletePhoto(View view) {
         image = null;
         photo.setImageResource(android.R.drawable.ic_menu_gallery);
+        Toast.makeText(context, "Photo removed.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -101,16 +116,10 @@ public class AddItemActivity extends AppCompatActivity {
             image = (Bitmap) extras.get("data");
             photo.setImageBitmap(image);
         }
+        Toast.makeText(context, "Photo added.", Toast.LENGTH_SHORT).show();
     }
 
-    protected boolean validateInput() {
-        String title_str = title.getText().toString();
-        String maker_str = maker.getText().toString();
-        String description_str = description.getText().toString();
-        String length_str = length.getText().toString();
-        String width_str = width.getText().toString();
-        String height_str = height.getText().toString();
-
+    public boolean validateInput(){
         if (title_str.equals("")) {
             title.setError("Empty field!");
             return false;
@@ -138,6 +147,16 @@ public class AddItemActivity extends AppCompatActivity {
 
         if (height_str.equals("")) {
             height.setError("Empty field!");
+            return false;
+        }
+
+        if (min_bid_str.equals("")) {
+            min_bid.setError("Empty field!");
+            return false;
+        }
+
+        if (Float.valueOf(min_bid_str) <= 0) {
+            min_bid.setError("Starting bid must be above 0!");
             return false;
         }
 

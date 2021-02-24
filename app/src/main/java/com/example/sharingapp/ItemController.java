@@ -3,7 +3,7 @@ package com.example.sharingapp;
 import android.graphics.Bitmap;
 
 /**
- * ItemController is responsible for all communication between views and Item object
+ * ItemController is responsible for all communication between views and Item model
  */
 
 public class ItemController {
@@ -46,11 +46,27 @@ public class ItemController {
         return item.getDescription();
     }
 
+    public Float getMinBid() {
+        return item.getMinBid();
+    }
+
+    public void setMinBid(Float bid) {
+        item.setMinBid(bid);
+    }
+
+    public void setOwnerId(String owner_id) {
+        item.setOwnerId(owner_id);
+    }
+
+    public String getOwnerId() {
+        return item.getOwnerId();
+    }
+
     public void setDimensions(String length, String width, String height) {
         item.setDimensions(length, width, height);
     }
 
-    public String getLength() {
+    public String getLength(){
         return item.getLength();
     }
 
@@ -70,11 +86,11 @@ public class ItemController {
         return item.getStatus();
     }
 
-    public void setBorrower(Contact borrower) {
+    public void setBorrower(User borrower) {
         item.setBorrower(borrower);
     }
 
-    public Contact getBorrower() {
+    public User getBorrower() {
         return item.getBorrower();
     }
 
@@ -95,5 +111,4 @@ public class ItemController {
     public void removeObserver(Observer observer) {
         item.removeObserver(observer);
     }
-
 }

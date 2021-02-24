@@ -14,8 +14,8 @@ public class AllItemsFragment extends ItemsFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         super.onCreateView(inflater, container, savedInstanceState);
+        super.setUserId(this.getArguments());
         super.setVariables(R.layout.all_items_fragment, R.id.my_items);
         super.loadItems(AllItemsFragment.this);
         super.setFragmentOnItemLongClickListener();
@@ -24,7 +24,7 @@ public class AllItemsFragment extends ItemsFragment {
     }
 
     public ArrayList<Item> filterItems() {
-        return item_list_controller.getItems();
+        return item_list_controller.getMyItems(user_id);
     }
 
 }

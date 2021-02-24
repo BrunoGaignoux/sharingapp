@@ -3,14 +3,14 @@ package com.example.sharingapp;
 import java.util.UUID;
 
 /**
- * Contact class
+ * User class
  */
-public class Contact extends Observable {
+public class User extends Observable {
     private String username;
     private String email;
     private String id;
 
-    Contact(String username, String email, String id) {
+    User(String username, String email, String id) {
         this.username = username;
         this.email = email;
 

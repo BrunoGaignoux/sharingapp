@@ -14,8 +14,8 @@ public class AvailableItemsFragment extends ItemsFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         super.onCreateView(inflater,container, savedInstanceState);
+        super.setUserId(this.getArguments());
         super.setVariables(R.layout.available_items_fragment, R.id.my_available_items);
         super.loadItems(AvailableItemsFragment.this);
         super.setFragmentOnItemLongClickListener();
@@ -25,6 +25,6 @@ public class AvailableItemsFragment extends ItemsFragment{
 
     public ArrayList<Item> filterItems() {
         String status = "Available";
-        return item_list_controller.filterItemsByStatus(status);
+        return item_list_controller.filterItems(user_id, status);
     }
 }

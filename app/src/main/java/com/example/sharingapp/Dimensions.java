@@ -26,8 +26,4 @@ public class Dimensions {
     public String getHeight() {
         return height;
     }
-
-    public String getDimensions() {
-        return length + " x " + width + " x " + height;
-    }
 }

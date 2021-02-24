@@ -18,6 +18,7 @@ public class EditItemCommand extends Command {
         this.context = context;
     }
 
+    // Delete the old item locally, save the new item locally
     public void execute() {
         item_list.deleteItem(old_item);
         item_list.addItem(new_item);

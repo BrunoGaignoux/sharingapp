@@ -17,6 +17,7 @@ public class DeleteItemCommand extends Command {
         this.context = context;
     }
 
+    // Delete the item locally
     public void execute() {
         item_list.deleteItem(item);
         super.setIsExecuted(item_list.saveItems(context));
